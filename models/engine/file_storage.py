@@ -27,6 +27,29 @@ class FileStorage:
                     my_dict[k] = v
             return my_dict
 
+    def get(self, cls, id):
+        '''
+        Retrieves a single object from file storage
+        '''
+        for k, v in self.__objects.items():
+            if cls in k and id in k:
+                return v
+        return None
+
+    def count(self, cls=None):
+        '''
+        Counts the number of objects in file storage
+        '''
+        count = 0
+        if cls is None:
+            for k in self.__objects.keys():
+                count += 1
+        else:
+            for k in self.__objects.keys():
+                if cls in k:
+                    count += 1
+        return count
+
     def new(self, obj):
         '''
             Set in __objects the obj with key <obj class name>.id

@@ -3,7 +3,8 @@
 import os
 import unittest
 import models
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from models.city import City
 from models.user import User
 from models.amenity import Amenity
 from models.state import State
@@ -58,10 +59,33 @@ class testDBStorage(unittest.TestCase):
 
     def test_delete_method(self):
         '''
-            Tests the delete method in db_storage
+         Tests the delete method in db_storage
         '''
         state = State(name="Texas")
         state.save()
         all_stored = models.storage.all()
         models.storage.delete(state)
         self.assertTrue(all_stored["State." + state.id])
+
+    def test_get_method(self):
+        '''
+        Tests the get method in db_storage
+        '''
+        state = State(name="Kentucky")
+        state.save()
+        obj = models.storage.get("State", str(state.id))
+        self.assertEqual(obj.name, "Kentucky")
+
+    """
+    def test_count_method(self):
+        '''
+        Tests the count method in db_storage
+        '''
+        Base.metadata.drop_all(self.__engine)
+        models.storage.close()
+        models.storage.reload()
+        state = State(name="Florida")
+        state.save()
+        count = models.storage.count("State")
+        self.assertEqual(count, 1)
+    """

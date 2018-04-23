@@ -61,6 +61,36 @@ class DBStorage():
                     continue
         return new_dict
 
+    def get(self, cls, id):
+        '''
+        Retrieves a single object from storage
+        '''
+        obj_list = self.__session.query(eval(cls)).all()
+        for obj in obj_list:
+            if obj.id == id:
+                return obj
+        return None
+
+    def count(self, cls=None):
+        '''
+        Counts the number of objects in storage
+        '''
+        count = 0
+        if cls is not None:
+            objs = self.__session.query(eval(cls)).all()
+            for obj in objs:
+                count += 1
+        else:
+            classes = ['User', 'State', 'City', 'Amenity', 'Place', 'Review']
+            for class_name in classes:
+                try:
+                    objs = (self.__session.query(eval(class_name)).all())
+                    for obj in objs:
+                        count += 1
+                except Exception:
+                    continue
+        return count
+
     def new(self, obj):
         '''
         Adds the object to the current database session
