@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 '''
    This module creates a route /status on the object app_views that returns a
    JSON
