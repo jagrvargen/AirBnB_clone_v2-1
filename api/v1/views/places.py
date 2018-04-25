@@ -8,7 +8,7 @@ from models import storage
 from models import Place
 
 
-@app_views.route('/citys/<uuid:city_id>/places', methods=['GET'],
+@app_views.route('/cities/<uuid:city_id>/places', methods=['GET'],
                  strict_slashes=False)
 def all_places_by_city(city_id):
     '''
@@ -54,7 +54,7 @@ def delete_place(place_id):
         abort(404)
 
 
-@app_views.route('/citys/<uuid:city_id>/places', methods=['POST'],
+@app_views.route('/cities/<uuid:city_id>/places', methods=['POST'],
                  strict_slashes=False)
 def create_place(city_id):
     '''
@@ -82,7 +82,8 @@ def create_place(city_id):
         abort(404)
 
     place_name = place_dict["name"]
-    place = Place(name=place_name, city_id=city_id)
+    user_id = place_dict["user_id"]
+    place = Place(name=place_name, user_id=user_id)
     for k, v in place_dict.items():
         setattr(place, k, v)
     place.save()
