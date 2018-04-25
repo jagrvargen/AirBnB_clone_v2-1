@@ -67,18 +67,26 @@ def create_place(city_id):
     if not request.json:
         abort(400)
         return jsonify({"error": "Not a JSON"})
-    else:
-        place_dict = request.get_json()
-        if "name" in place_dict:
-            place_name = place_dict["name"]
-            place = Place(name=place_name, city_id=city_id)
-            for k, v in place_dict.items():
-                setattr(place, k, v)
-            place.save()
-        else:
-            raise(400)
-            return jsonify({"error": "Missing name"})
-        return jsonify(place.to_dict()), 201
+
+    place_dict = request.get_json()
+    if "user_id" not in place_dict:
+        abort(400)
+        return jsonify({"error": "Missing user_id"})
+    elif "name" not in place_dict:
+        abort(400)
+        return jsonify({"error": "Missing name"})
+
+    # Check that user_id is linked to actual User object
+    user_check = storage.get("User", place_dict["user_id"])
+    if not user_check:
+        abort(404)
+
+    place_name = place_dict["name"]
+    place = Place(name=place_name, city_id=city_id)
+    for k, v in place_dict.items():
+        setattr(place, k, v)
+    place.save()
+    return jsonify(place.to_dict()), 201
 
 
 @app_views.route('/places/<uuid:place_id>', methods=['PUT'],
