@@ -1,0 +1,104 @@
+#!/usr/bin/python3
+'''
+   This module handles all default RestFul API actions for Place objects.
+'''
+from flask import jsonify, abort, request
+from api.v1.views import app_views
+from models import storage
+from models import Place
+
+
+@app_views.route('/citys/<uuid:city_id>/places', methods=['GET'],
+                 strict_slashes=False)
+def all_places_by_city(city_id):
+    '''
+       Retrieves all Place objects from storage that belong to specified City
+    '''
+    city = storage.get("City", city_id)
+    if not city:
+        abort(404)
+    places_list = []
+    places = storage.all("Place")
+    for k, v in places.items():
+        if v.city_id == str(city_id):
+            places_list.append(v.to_dict())
+
+    return jsonify(places_list)
+
+
+@app_views.route('/places/<uuid:place_id>', methods=['GET'],
+                 strict_slashes=False)
+def place_by_id(place_id):
+    '''
+       Retrieves a specified Place object from storage
+    '''
+    try:
+        place = storage.get("Place", place_id)
+        format_place = place.to_dict()
+        return jsonify(format_place)
+    except Exception:
+        abort(404)
+
+
+@app_views.route('/places/<uuid:place_id>', methods=['DELETE'],
+                 strict_slashes=False)
+def delete_place(place_id):
+    '''
+       Deletes a specified Place object from storage
+    '''
+    try:
+        place = storage.get("Place", place_id)
+        storage.delete(place)
+        return jsonify({}), 200
+    except Exception:
+        abort(404)
+
+
+@app_views.route('/citys/<uuid:city_id>/places', methods=['POST'],
+                 strict_slashes=False)
+def create_place(city_id):
+    '''
+       Creates a new Place object and saves it to storage
+    '''
+    city = storage.get("City", city_id)
+    if not city:
+        abort(404)
+
+    if not request.json:
+        abort(400)
+        return jsonify({"error": "Not a JSON"})
+    else:
+        place_dict = request.get_json()
+        if "name" in place_dict:
+            place_name = place_dict["name"]
+            place = Place(name=place_name, city_id=city_id)
+            for k, v in place_dict.items():
+                setattr(place, k, v)
+            place.save()
+        else:
+            raise(400)
+            return jsonify({"error": "Missing name"})
+        return jsonify(place.to_dict()), 201
+
+
+@app_views.route('/places/<uuid:place_id>', methods=['PUT'],
+                 strict_slashes=False)
+def update_place(place_id):
+    '''
+       Updates an existing Place object and saves it to storage
+    '''
+    place = storage.get("Place", place_id)
+    if not place:
+        abort(404)
+    if not request.json:
+        abort(400)
+        return jsonify({"error": "Not a JSON"})
+
+    req = request.get_json()
+    for k, v in req.items():
+        if k != "id" and k != "created_at" and k!= "updated_at" and
+        k != "user_id" and k != "city_id":
+            setattr(place, k, v)
+    place.save()
+
+    return jsonify(place.to_dict()), 200
