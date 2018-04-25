@@ -105,7 +105,7 @@ def update_place(place_id):
 
     req = request.get_json()
     for k, v in req.items():
-        if k != "id" and k != "created_at" and k!= "updated_at" and
+        if k != "id" and k != "created_at" and k!= "updated_at" and\
         k != "user_id" and k != "city_id":
             setattr(place, k, v)
     place.save()

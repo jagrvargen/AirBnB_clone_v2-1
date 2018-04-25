@@ -79,7 +79,7 @@ def create_user():
 
 @app_views.route('/users/<uuid:user_id>', methods=['PUT'],
                  strict_slashes=False)
-def update_city(user_id):
+def update_user(user_id):
     '''
        Updates an existing City object and saves it to storage
     '''
@@ -92,8 +92,8 @@ def update_city(user_id):
 
     req = request.get_json()
     for k, v in req.items():
-        if k != "id" and k != "created_at" and k!= "updated_at" and
-        k !="email":
+        if k != "id" and k != "created_at" and k!= "updated_at"\
+        and k !="email":
             setattr(user, k, v)
     user.save()
 
