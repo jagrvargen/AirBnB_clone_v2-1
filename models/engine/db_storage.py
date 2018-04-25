@@ -67,7 +67,7 @@ class DBStorage():
         '''
         obj_list = self.__session.query(eval(cls)).all()
         for obj in obj_list:
-            if obj.id == id:
+            if obj.id == str(id):
                 return obj
         return None
 
