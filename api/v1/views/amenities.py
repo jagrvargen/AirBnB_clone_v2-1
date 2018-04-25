@@ -12,7 +12,7 @@ from models import Amenity
                  strict_slashes=False)
 def all_amenities_by_state():
     '''
-       Retrieves all Amenity objects from storage that belong to specified State
+       Retrieves all Amenity objects from storage
     '''
     amenities = storage.all("Amenity")
     amenities_list = []
