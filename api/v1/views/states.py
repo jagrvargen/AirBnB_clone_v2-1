@@ -68,7 +68,6 @@ def create_state():
         else:
             raise(400)
             return jsonify({"error": "Missing name"})
-        print("Check\n\n")
         return jsonify(state.to_dict()), 201
 
 
