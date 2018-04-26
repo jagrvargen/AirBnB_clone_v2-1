@@ -61,6 +61,7 @@ class DBStorage():
                     continue
         return new_dict
 
+'''
     def get(self, cls, id):
         '''
         Retrieves a single object from storage
@@ -90,7 +91,7 @@ class DBStorage():
                 except Exception:
                     continue
         return count
-
+'''
     def new(self, obj):
         '''
         Adds the object to the current database session
