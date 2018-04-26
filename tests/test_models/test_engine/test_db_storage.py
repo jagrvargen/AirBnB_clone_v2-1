@@ -66,7 +66,7 @@ class testDBStorage(unittest.TestCase):
         all_stored = models.storage.all()
         models.storage.delete(state)
         self.assertTrue(all_stored["State." + state.id])
-
+'''
     def test_get_method(self):
         '''
         Tests the get method in db_storage
@@ -76,16 +76,13 @@ class testDBStorage(unittest.TestCase):
         obj = models.storage.get("State", str(state.id))
         self.assertEqual(obj.name, "Kentucky")
 
-    """
     def test_count_method(self):
         '''
         Tests the count method in db_storage
         '''
-        Base.metadata.drop_all(self.__engine)
-        models.storage.close()
-        models.storage.reload()
+        count = models.storage.count("State")
         state = State(name="Florida")
         state.save()
-        count = models.storage.count("State")
-        self.assertEqual(count, 1)
-    """
+        after_count = models.storage.count("State")
+        self.assertEqual(count, after_count - 1)
+'''

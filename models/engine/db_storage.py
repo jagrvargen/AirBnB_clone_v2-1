@@ -61,13 +61,14 @@ class DBStorage():
                     continue
         return new_dict
 
+'''
     def get(self, cls, id):
         '''
         Retrieves a single object from storage
         '''
         obj_list = self.__session.query(eval(cls)).all()
         for obj in obj_list:
-            if obj.id == id:
+            if obj.id == str(id):
                 return obj
         return None
 
@@ -90,7 +91,7 @@ class DBStorage():
                 except Exception:
                     continue
         return count
-
+'''
     def new(self, obj):
         '''
         Adds the object to the current database session
