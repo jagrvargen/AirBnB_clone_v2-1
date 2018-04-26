@@ -66,7 +66,7 @@ def create_state():
                 setattr(state, k, v)
             state.save()
         else:
-            raise(400)
+            abort(400)
             return jsonify({"error": "Missing name"})
         return jsonify(state.to_dict()), 201
 
