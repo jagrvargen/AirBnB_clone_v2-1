@@ -17,7 +17,7 @@ def all_amenities_by_state():
     amenities = storage.all("Amenity")
     amenities_list = []
     for k, v in amenities.items():
-        amenities_list.append(amenity.to_dict())
+        amenities_list.append(v.to_dict())
 
     return jsonify(amenities_list)
 
