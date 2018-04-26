@@ -16,8 +16,8 @@ def all_amenities_by_state():
     '''
     amenities = storage.all("Amenity")
     amenities_list = []
-    for amenity in amenities:
-        amenities_list.append(amenity)
+    for k, v in amenities.items():
+        amenities_list.append(amenity.to_dict())
 
     return jsonify(amenities_list)
 
@@ -88,7 +88,7 @@ def update_amenity(amenity_id):
 
     req = request.get_json()
     for k, v in req.items():
-        if k != "id" and k != "created_at" and k!= "updated_at":
+        if k != "id" and k != "created_at" and k != "updated_at":
             setattr(amenity, k, v)
     amenity.save()
 
