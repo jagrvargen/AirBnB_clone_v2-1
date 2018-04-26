@@ -172,6 +172,7 @@ class testFileStorage(unittest.TestCase):
         file storage
         '''
         fs = FileStorage()
+        count = fs.count("State")
         new_state1 = State(name="Florida")
         new_state2 = State(name="Illinois")
         new_state3 = State(name="Washington")
@@ -179,5 +180,5 @@ class testFileStorage(unittest.TestCase):
         fs.new(new_state2)
         fs.new(new_state3)
         fs.save()
-        count = fs.count("State")
-        self.assertEqual(count, 3)
+        after_count = fs.count("State")
+        self.assertEqual(count, after_count - 3)
