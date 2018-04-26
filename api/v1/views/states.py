@@ -86,7 +86,7 @@ def update_state(state_id):
 
     req = request.get_json()
     for k, v in req.items():
-        if k != "id" and k != "created_at" and k!= "updated_at":
+        if k != "id" and k != "created_at" and k != "updated_at":
             setattr(state, k, v)
     state.save()
 
