@@ -15,8 +15,8 @@ def all_states():
     '''
     states_list = []
     states = storage.all("State")
-    for state in states:
-        states_list.append(state)
+    for k, v in states.items():
+        states_list.append(v.to_dict())
 
     return jsonify(states_list)
 
