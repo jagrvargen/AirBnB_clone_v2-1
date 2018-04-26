@@ -76,7 +76,7 @@ def create_city(state_id):
                 setattr(city, k, v)
             city.save()
         else:
-            raise(400)
+            abort(400)
             return jsonify({"error": "Missing name"})
         return jsonify(city.to_dict()), 201
 
@@ -96,7 +96,7 @@ def update_city(city_id):
 
     req = request.get_json()
     for k, v in req.items():
-        if k != "id" and k != "created_at" and k!= "updated_at":
+        if k != "id" and k != "created_at" and k != "updated_at":
             setattr(city, k, v)
     city.save()
 
