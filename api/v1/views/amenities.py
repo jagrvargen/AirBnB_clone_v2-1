@@ -68,7 +68,7 @@ def create_amenity():
                 setattr(amenity, k, v)
             amenity.save()
         else:
-            raise(400)
+            abort(400)
             return jsonify({"error": "Missing name"})
         return jsonify(amenity.to_dict()), 201
 
