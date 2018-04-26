@@ -153,7 +153,6 @@ class testFileStorage(unittest.TestCase):
         for key, value in json_dict.items():
             self.assertTrue(value['id'] != my_id)
 
-'''
     def test_get(self):
         '''
         Tests that the get method returns an object from file storage
@@ -183,4 +182,3 @@ class testFileStorage(unittest.TestCase):
         fs.save()
         after_count = fs.count("State")
         self.assertEqual(count, after_count - 3)
-'''
