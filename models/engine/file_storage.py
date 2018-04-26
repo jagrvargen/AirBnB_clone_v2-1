@@ -26,7 +26,7 @@ class FileStorage:
                 if name[0] in str(cls):
                     my_dict[k] = v
             return my_dict
-'''
+
     def get(self, cls, id):
         '''
         Retrieves a single object from file storage
@@ -49,7 +49,7 @@ class FileStorage:
                 if cls in k:
                     count += 1
         return count
-'''
+
     def new(self, obj):
         '''
             Set in __objects the obj with key <obj class name>.id
