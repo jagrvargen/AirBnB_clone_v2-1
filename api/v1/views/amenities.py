@@ -70,7 +70,6 @@ def create_amenity():
             return jsonify({"error": "Missing name"}), 400
 
 
-
 @app_views.route('/amenities/<uuid:amenity_id>', methods=['PUT'],
                  strict_slashes=False)
 def update_amenity(amenity_id):
