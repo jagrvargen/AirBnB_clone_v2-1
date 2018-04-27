@@ -41,12 +41,11 @@ def delete_amenity(amenity_id):
     '''
        Deletes a specified Amenity object from storage
     '''
-    try:
-        amenity = storage.get("Amenity", amenity_id)
-        storage.delete(amenity)
-        return jsonify({}), 200
-    except Exception:
+    amenity = storage.get("Amenity", amenity_id)
+    if not amenity:
         abort(404)
+    storage.delete(amenity)
+    return jsonify({}), 200
 
 
 @app_views.route('/amenities', methods=['POST'],
