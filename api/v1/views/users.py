@@ -83,7 +83,7 @@ def update_user(user_id):
     '''
        Updates an existing City object and saves it to storage
     '''
-    user = storage.get("User", city_id)
+    user = storage.get("User", user_id)
     if not user:
         abort(404)
     if not request.json:
