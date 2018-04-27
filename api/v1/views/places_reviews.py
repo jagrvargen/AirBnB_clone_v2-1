@@ -60,7 +60,7 @@ def create_review(place_id):
     '''
        Creates a new Review object and saves it to storage
     '''
-    place = storage.get("Review", place_id)
+    place = storage.get("Place", place_id)
     if not place:
         abort(404)
 
