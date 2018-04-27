@@ -62,10 +62,10 @@ def create_user():
     else:
         user_dict = request.get_json()
         if "email" not in user_dict:
-            raise(400)
+            abort(400)
             return jsonify({"error": "Missing email"})
         elif "password" not in user_dict:
-            raise(400)
+            abort(400)
             return jsonify({"error": "Missing password"})
         else:
             user_email = user_dict["email"]
