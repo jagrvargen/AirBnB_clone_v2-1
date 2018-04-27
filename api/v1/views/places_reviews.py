@@ -12,7 +12,7 @@ from models import Review
                  strict_slashes=False)
 def all_reviews_by_place(place_id):
     '''
-       Retrieves all Review objects from storage that belong to specified Review
+       Retrieves all Review objects from storage that for specified Review
     '''
     place = storage.get("Review", place_id)
     if not place:
@@ -105,7 +105,7 @@ def update_review(review_id):
 
     req = request.get_json()
     for k, v in req.items():
-        if k != "id" and k != "created_at" and k!= "updated_at" and\
+        if k != "id" and k != "created_at" and k != "updated_at" and
         k != "user_id" and k != "place_id":
             setattr(review, k, v)
     review.save()
