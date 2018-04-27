@@ -55,20 +55,20 @@ def create_amenity():
        Creates a new Amenity object and saves it to storage
     '''
     if not request.json:
-        abort(400)
-        return jsonify({"error": "Not a JSON"})
+        return jsonify({"error": "Not a JSON"}), 400
     else:
         amenity_dict = request.get_json()
+        print(amenity_dict)
         if "name" in amenity_dict:
             amenity_name = amenity_dict["name"]
             amenity = Amenity(name=amenity_name)
             for k, v in amenity_dict.items():
                 setattr(amenity, k, v)
             amenity.save()
+            return jsonify(amenity.to_dict()), 201
         else:
-            abort(400)
-            return jsonify({"error": "Missing name"})
-        return jsonify(amenity.to_dict()), 201
+            return jsonify({"error": "Missing name"}), 400
+
 
 
 @app_views.route('/amenities/<uuid:amenity_id>', methods=['PUT'],
@@ -81,8 +81,7 @@ def update_amenity(amenity_id):
     if not amenity:
         abort(404)
     if not request.json:
-        abort(400)
-        return jsonify({"error": "Not a JSON"})
+        return jsonify({"error": "Not a JSON"}), 400
 
     req = request.get_json()
     for k, v in req.items():
