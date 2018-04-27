@@ -46,12 +46,12 @@ def delete_place(place_id):
     '''
        Deletes a specified Place object from storage
     '''
-    try:
-        place = storage.get("Place", place_id)
+    place = storage.get("Place", place_id)
+    if not place:
+        abort(404)
+    else:
         storage.delete(place)
         return jsonify({}), 200
-    except Exception:
-        abort(404)
 
 
 @app_views.route('/cities/<uuid:city_id>/places', methods=['POST'],
@@ -83,7 +83,7 @@ def create_place(city_id):
 
     place_name = place_dict["name"]
     user_id = place_dict["user_id"]
-    place = Place(name=place_name, user_id=user_id)
+    place = Place(name=place_name, user_id=user_id, city_id=city_id)
     for k, v in place_dict.items():
         setattr(place, k, v)
     place.save()
