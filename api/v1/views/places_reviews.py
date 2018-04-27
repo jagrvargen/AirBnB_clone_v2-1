@@ -81,9 +81,9 @@ def create_review(place_id):
     if not user_check:
         abort(404)
 
-    review_name = review_dict["text"]
+    review_text = review_dict["text"]
     user_id = review_dict["user_id"]
-    review = Review(name=review_name, user_id=user_id)
+    review = Review(text=review_text, user_id=user_id, place_id=place_id)
     for k, v in review_dict.items():
         setattr(review, k, v)
     review.save()
