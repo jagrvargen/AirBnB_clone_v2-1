@@ -72,16 +72,16 @@ def create_review(place_id):
     if "user_id" not in review_dict:
         abort(400)
         return jsonify({"error": "Missing user_id"})
-    elif "name" not in review_dict:
+    elif "text" not in review_dict:
         abort(400)
-        return jsonify({"error": "Missing name"})
+        return jsonify({"error": "Missing text"})
 
     # Check that user_id is linked to actual User object
     user_check = storage.get("User", review_dict["user_id"])
     if not user_check:
         abort(404)
 
-    review_name = review_dict["name"]
+    review_name = review_dict["text"]
     user_id = review_dict["user_id"]
     review = Review(name=review_name, user_id=user_id)
     for k, v in review_dict.items():
