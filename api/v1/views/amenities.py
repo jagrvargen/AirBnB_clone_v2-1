@@ -76,7 +76,7 @@ def update_amenity(amenity_id):
     '''
        Updates an existing Amenity object and saves it to storage
     '''
-    amenity = storage.get("Amenity", city_id)
+    amenity = storage.get("Amenity", amenity_id)
     if not amenity:
         abort(404)
     if not request.json:
