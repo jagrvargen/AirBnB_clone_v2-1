@@ -28,12 +28,11 @@ def amenity_by_id(amenity_id):
     '''
        Retrieves a specified Amenity object from storage
     '''
-    try:
-        amenity = storage.get("Amenity", amenity_id)
-        format_amenity = amenity.to_dict()
-        return jsonify(format_amenity)
-    except Exception:
+    amenity = storage.get("Amenity", amenity_id)
+    if not amenity:
         abort(404)
+    format_amenity = amenity.to_dict()
+    return jsonify(format_amenity)
 
 
 @app_views.route('/amenities/<uuid:amenity_id>', methods=['DELETE'],
