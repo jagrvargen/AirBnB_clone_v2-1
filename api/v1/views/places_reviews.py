@@ -14,7 +14,7 @@ def all_reviews_by_place(place_id):
     '''
        Retrieves all Review objects from storage that for specified Review
     '''
-    place = storage.get("Review", place_id)
+    place = storage.get("Place", place_id)
     if not place:
         abort(404)
     reviews_list = []
